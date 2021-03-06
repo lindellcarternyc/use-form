@@ -1,8 +1,21 @@
+import useForm from './use-form'
+
 const TextInputExample: React.FC = () => {
-    // const { } = useForm()
+    const { handleChange, values } = useForm({
+        initialValues: {
+            text: ''
+        }
+    })
     return (
         <>
-            <input type="text" />
+            <label htmlFor="test-text">Text Input</label>
+            <input 
+                type="text"
+                id="test-text"
+                value={values.text}
+                onChange={handleChange}
+                name="text"
+            />
         </>
     )
 }
