@@ -65,3 +65,9 @@ export const CheckboxInputExample: React.FC<{ checked?: boolean }> = ({ checked 
         </>
     )
 }
+
+export const CheckboxGroupExample: React.FC = () => {
+    return (
+        <></>
+    )
+}

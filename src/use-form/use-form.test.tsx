@@ -41,4 +41,8 @@ describe('useForm', () => {
         userEvent.click(checkboxInput)
         expect(checkboxInput).toHaveProperty('checked', true)
     })
+
+    it('should handle multiple checkboxes', () => {
+        render(<CheckboxGroupExample />)
+    })
 })
