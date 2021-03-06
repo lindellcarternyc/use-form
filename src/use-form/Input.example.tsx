@@ -42,3 +42,32 @@ export const NumberInputExample: React.FC<{ value?: number }> = ({ value }) => {
         </>
     )
 }
+
+export const CheckboxInputExample: React.FC<{ checked?: boolean }> = ({ checked }) => {
+    const {
+        values, handleChange
+    } = useForm({
+        initialValues: {
+            checkbox: checked || false
+        }
+    })
+
+    return (
+        <>
+            <label htmlFor="checkbox">Checkbox</label>
+            <input 
+                type="checkbox"
+                id="checkbox"
+                checked={values.checkbox}
+                onChange={handleChange}
+                name="checkbox"
+            />
+        </>
+    )
+}
+
+export const CheckboxGroupExample: React.FC = () => {
+    return (
+        <></>
+    )
+}
