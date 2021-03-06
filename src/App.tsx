@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { NumberInputExample } from './use-form/Input.example'
+// import { NumberInputExample } from './use-form/Input.example'
 
 function App() {
-  const num = document.querySelector(`input[type=number]`)
-  console.dir(num)
+  const [state, setState] = useState({
+    checkbox: false
+  })
+
+  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    if (evt.target.type === 'checkbox') {
+      setState({
+        ...state,
+        [evt.target.name]: evt.target.checked
+      })
+    }
+  }
+
   return (
     <div className="App">
-      <NumberInputExample />
+      {/* <NumberInputExample /> */}
+      <input 
+        name="checkbox"
+        type="checkbox"
+        onChange={onChange}
+        checked={state.checkbox}
+      />
     </div>
   );
 }

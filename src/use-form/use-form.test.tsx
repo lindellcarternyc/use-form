@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { 
-    TextInputExample, NumberInputExample
+    TextInputExample, NumberInputExample, CheckboxInputExample
 } from './Input.example'
 
 describe('useForm', () => {
@@ -32,5 +32,13 @@ describe('useForm', () => {
         expect(numberInput).toHaveProperty('value', '10')
         userEvent.type(numberInput, '20')
         expect(numberInput).toHaveProperty('value', '1020')
+    })
+
+    it('should manage a checkbox', () => {
+        render(<CheckboxInputExample />)
+        const checkboxInput = screen.getByLabelText(/checkbox/i)
+        expect(checkboxInput).toHaveProperty('checked', false)
+        userEvent.click(checkboxInput)
+        expect(checkboxInput).toHaveProperty('checked', true)
     })
 })
