@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { CheckboxGroupExample } from './use-form/Input.example'
+import { CheckboxGroupExample, RadioInputExample } from './use-form/Input.example'
 // import { NumberInputExample } from './use-form/Input.example'
 
 function App() {
@@ -22,13 +22,14 @@ function App() {
   return (
     <div className="App">
       {/* <NumberInputExample /> */}
-      <input 
+      {/* <input 
         name="checkbox"
         type="checkbox"
         onChange={onChange}
         checked={state.checkbox}
       />
-      <CheckboxGroupExample />
+      <CheckboxGroupExample /> */}
+      <RadioInputExample />
     </div>
   );
 }

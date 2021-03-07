@@ -2,7 +2,11 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { 
-    TextInputExample, NumberInputExample, CheckboxInputExample, CheckboxGroupExample
+    TextInputExample, 
+    NumberInputExample, 
+    CheckboxInputExample, 
+    CheckboxGroupExample,
+    RadioInputExample
 } from './Input.example'
 
 describe('useForm', () => {
@@ -62,5 +66,27 @@ describe('useForm', () => {
 
         userEvent.click(choiceTwo)
         expect(choiceTwo).toHaveProperty('checked', false)
+    })
+
+    it('should handle radio buttons', () => {
+        render(<RadioInputExample />)
+
+        const radio1 = screen.getByLabelText(/radio 1/i)
+        const radio2 = screen.getByLabelText(/radio 2/i)
+        const radio3 = screen.getByLabelText(/radio 3/i)
+
+        expect(radio1).toHaveProperty('checked', false)
+        expect(radio2).toHaveProperty('checked', false)
+        expect(radio3).toHaveProperty('checked', false)
+
+        userEvent.click(radio1)
+        expect(radio1).toHaveProperty('checked', true)
+        expect(radio2).toHaveProperty('checked', false)
+        expect(radio3).toHaveProperty('checked', false)
+
+        userEvent.click(radio2)
+        expect(radio1).toHaveProperty('checked', false)
+        expect(radio2).toHaveProperty('checked', true)
+        expect(radio3).toHaveProperty('checked', false)
     })
 })

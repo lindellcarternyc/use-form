@@ -87,3 +87,21 @@ export const CheckboxGroupExample: React.FC = () => {
         </>
     )
 }
+
+export const RadioInputExample: React.FC = () => {
+    const { values, handleChange } = useForm({
+        initialValues: {
+            option: ''
+        }
+    })
+    return (
+        <>
+            <label htmlFor="radio1">Radio 1</label>
+            <input type="radio" name="option" id="radio1" value="radio 1" checked={values.option === 'radio 1'} onChange={handleChange} />
+            <label htmlFor="radio2">Radio 2</label>
+            <input type="radio" name="option" id="radio2" value="radio 2" checked={values.option === 'radio 2'} onChange={handleChange} />
+            <label htmlFor="radio3">Radio 3</label>
+            <input type="radio" name="option" id="radio3" value="radio 3" checked={values.option === 'radio 3'} onChange={handleChange} />
+        </>
+    )
+}
