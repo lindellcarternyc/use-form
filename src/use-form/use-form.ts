@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
-export interface UseFormArgs<T extends Record<string, any>> {
-    initialValues: T
+export interface UseFormArgs<Values extends Record<string, any>> {
+    initialValues: Values
 }
 
 const isString = (obj: any): obj is string => typeof obj === 'string'
@@ -12,15 +12,17 @@ const makeType = <Value>(obj: any): Value => {
     return obj
 }
 
-const getUpdateValue = (currentValue: any, newValue: string): typeof currentValue => {
+const getUpdateValue = <Value>(currentValue: Value, newValue: string): Value => {
     if (isString(currentValue)) {
-        return newValue
+        return makeType(newValue)
     } else if (isNumber(currentValue)) {
         const numberValue = parseFloat(newValue)
         if (isNaN(numberValue)) {
             return currentValue
         }
-        return numberValue
+        return makeType(numberValue)
+    } else {
+        throw new Error(`Cannot process newValue: ${newValue}!`)
     }
 }
 
@@ -34,14 +36,19 @@ const useForm = <Values extends Record<string, any>>(args: UseFormArgs<Values>) 
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = evt.target
+        
+        if (!Object.keys(values).includes(name)) return
+        
+        const key = name as keyof Values
 
-        const currentValue = values[name]
-        let updatedValue: typeof values[typeof name]
+        const currentValue = values[key]
+        let updatedValue: typeof values[typeof key]
+        
         if (type === 'checkbox') {
             if (Array.isArray(currentValue)) {
-                updatedValue = getUpdateArrayValue(currentValue, value) as any
+                updatedValue = makeType(getUpdateArrayValue(currentValue, value))
             } else { 
-                updatedValue = checked as any
+                updatedValue = makeType(checked)
             }
         } else {
             updatedValue = getUpdateValue(currentValue, value)
