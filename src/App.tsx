@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { CheckboxGroupExample } from './use-form/Input.example'
 // import { NumberInputExample } from './use-form/Input.example'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         onChange={onChange}
         checked={state.checkbox}
       />
+      <CheckboxGroupExample />
     </div>
   );
 }

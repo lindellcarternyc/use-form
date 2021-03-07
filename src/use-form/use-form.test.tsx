@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { 
-    TextInputExample, NumberInputExample, CheckboxInputExample
+    TextInputExample, NumberInputExample, CheckboxInputExample, CheckboxGroupExample
 } from './Input.example'
 
 describe('useForm', () => {
@@ -44,5 +44,23 @@ describe('useForm', () => {
 
     it('should handle multiple checkboxes', () => {
         render(<CheckboxGroupExample />)
+
+        const choiceOne = screen.getByLabelText(/one/i)
+        const choiceTwo = screen.getByLabelText(/two/i)
+        const choiceThree = screen.getByLabelText(/three/i)
+
+        expect(choiceOne).toHaveProperty('checked', false)
+        expect(choiceTwo).toHaveProperty('checked', false)
+        expect(choiceThree).toHaveProperty('checked', false)
+
+        userEvent.click(choiceOne)
+        userEvent.click(choiceTwo)
+
+        expect(choiceOne).toHaveProperty('checked', true)
+        expect(choiceTwo).toHaveProperty('checked', true)
+        expect(choiceThree).toHaveProperty('checked', false)
+
+        userEvent.click(choiceTwo)
+        expect(choiceTwo).toHaveProperty('checked', false)
     })
 })

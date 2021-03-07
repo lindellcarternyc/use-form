@@ -67,7 +67,23 @@ export const CheckboxInputExample: React.FC<{ checked?: boolean }> = ({ checked 
 }
 
 export const CheckboxGroupExample: React.FC = () => {
+    interface State {
+        choices: string[]
+    }
+
+    const { values, handleChange } = useForm<State>({
+        initialValues: {
+            choices: []
+        }
+    })
     return (
-        <></>
+        <>
+            <label htmlFor="one">Choice one</label>
+            <input type="checkbox" id="one" name="choices" value="one" onChange={handleChange} checked={values.choices.includes("one")}/>
+            <label htmlFor="two">Choice two</label>
+            <input type="checkbox" id="two" name="choices" value="two" onChange={handleChange} checked={values.choices.includes("two")} />
+            <label htmlFor="three">Choice three</label>
+            <input type="checkbox" id="three" name="choices" value="three" onChange={handleChange} checked={values.choices.includes("three")} />
+        </>
     )
 }

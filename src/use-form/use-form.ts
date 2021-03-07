@@ -24,17 +24,27 @@ const getUpdateValue = (currentValue: any, newValue: string): typeof currentValu
     }
 }
 
+const getUpdateArrayValue = (currentArray: string[], value: string): string[] => {
+    if (currentArray.includes(value)) return currentArray.filter(val => val!== value)
+    return [...currentArray, value]
+}
+
 const useForm = <Values extends Record<string, any>>(args: UseFormArgs<Values>) => {
     const [values, setValues] = useState(args.initialValues)
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = evt.target
 
+        const currentValue = values[name]
         let updatedValue: typeof values[typeof name]
         if (type === 'checkbox') {
-            updatedValue = checked as any
+            if (Array.isArray(currentValue)) {
+                updatedValue = getUpdateArrayValue(currentValue, value) as any
+            } else { 
+                updatedValue = checked as any
+            }
         } else {
-            updatedValue = getUpdateValue(values[name], value)
+            updatedValue = getUpdateValue(currentValue, value)
         }
 
         const newValues: Values = {
