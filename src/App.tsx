@@ -6,8 +6,8 @@ import {
   RadioInputExample,
   TextInputExample
 } from './use-form/Input.example'
-function App() {
 
+function App() {
   return (
     <div className="App">
       <NumberInputExample /> 
